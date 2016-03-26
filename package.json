@@ -1,6 +1,6 @@
 {
   "name": "websql-json",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web SQL Database. Everything with JSON",
   "main": "./lib/websqlInterface.js",
   "scripts": {

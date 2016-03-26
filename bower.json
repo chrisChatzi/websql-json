@@ -1,0 +1,26 @@
+{
+  "name": "websqlDB",
+  "homepage": "",
+  "authors": [
+    "chrisChatzi"
+  ],
+  "description": "Web Sqlite DB easy access library",
+  "main": "./lib/websqlInterface.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "websql",
+    "sqlite",
+    "database",
+    "sql"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

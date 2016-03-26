@@ -197,6 +197,7 @@ Search database.
 **Result**
 
 The result of all the methods will be a JSON object with 2 keys:
+
 	var callbackData = {
       done : flag,
       data : data

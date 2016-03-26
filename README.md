@@ -166,6 +166,7 @@ Update data of a table.
     _set_ JSON cannot be empty
     _where_ JSON can be empty. In this case the set condition is applied to all rows of the table.
 
+
 **Find:**
 
 Search database.
@@ -191,3 +192,17 @@ Search database.
     };
 
     find all data in this table
+
+
+**Result**
+
+The result of all the methods will be a JSON object with 2 keys:
+	var callbackData = {
+      done : flag,
+      data : data
+    };
+    
+    _done_ returns true if the DB call is successfull or false if it is not
+    _data_ returns a message e.g. "Table created successfully" 
+    
+    or in case of a 'find' transaction it returns the result in _data.rows_ array

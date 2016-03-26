@@ -1,10 +1,14 @@
 {
   "name": "websql-json",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Web SQL Database. Everything with JSON",
   "main": "./lib/websqlInterface.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisChatzi/websql-json"
   },
   "keywords": [
     "websql",

@@ -69,7 +69,7 @@ var resultElem = $("#result");
 			}else msgCallback(result);
 		});
 	}
-	// realExample();
+	realExample();
 
 //**CONNECT
 	function connect(){
@@ -136,7 +136,7 @@ var resultElem = $("#result");
 		};
 		local.transaction("delete", data, msgCallback);
 	}
-	deleteDB();
+	// deleteDB();
 //**FIND
 	function find(){
 		var data = {
@@ -614,7 +614,6 @@ exports.DebugItem = function DebugItem(lineno, filename) {
     				this.setCredentials(data, callback);
     				this.openDatabase();
     			}
-    			console.log("make trans "+type);
     			this.transaction(type, data, function(res){
     				callback(res);
     			});
@@ -790,8 +789,6 @@ exports.DebugItem = function DebugItem(lineno, filename) {
     	if(!localStorageObj) localStorageObj = new localStorage();
     	localStorageObj.openDatabase();
     	type = type.toLowerCase();
-
-        console.log(type);
     	switch(type){
     		case "create": 
     			localStorageObj.setDB(type, data, callback); 

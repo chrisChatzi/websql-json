@@ -1,7 +1,7 @@
 {
   "name": "websql-json",
   "version": "0.1.0",
-  "description": "Web sqlite access library. Communicate easy and clean with JSON strings",
+  "description": "Web SQL Database. Everything with JSON",
   "main": "./lib/websqlInterface.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

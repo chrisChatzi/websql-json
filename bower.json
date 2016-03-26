@@ -4,7 +4,7 @@
   "authors": [
     "chrisChatzi"
   ],
-  "description": "Web Sqlite DB easy access library",
+  "description": "Web SQL Database. Everything with JSON",
   "main": "./lib/websqlInterface.js",
   "moduleType": [
     "amd"

@@ -2,7 +2,7 @@ Web sqlite access library. Communicate easy and clean with JSON strings.
     
 ## Usage
  
-> var local = require("websqlInterface");
+> var local = require("websql-json");
  
 **Connect:**
 

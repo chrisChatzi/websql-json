@@ -533,6 +533,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
     var i = 0;
     var self = "";
+    var transactionObj = "";
     var checkObj = "";
 
     var localStorage = function(){
@@ -574,9 +575,8 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 	    			this.size
 	    		);
 	    	},
-    	//SETS
-    		setCredentials : function(data, callback){
-    			this.callback = callback;
+	    	connect : function(){
+	    		this.callback = callback;
     			//check
     			if(!checkObj) checkObj = new checkClass("", data, callback);
     			if(checkObj.checkUserData()) return;
@@ -592,12 +592,27 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 	    			data : "Connected to: "+this.name
 	    		};
     			callback(callbackData);
+	    	},
+    	//SETS
+    		setCredentials : function(data, callback){
+    			this.callback = callback;
+    			//check
+    			if(!checkObj) checkObj = new checkClass("", data, callback);
+    			if(checkObj.checkUserData()) return;
+    			//
+    			this.name = data.name;
+    			if(data.version) this.version = data.version;
+    			if(data.descr) this.descr = data.descr;
+    			else this.descr = this.name;
+    			if(data.size) this.size = data.size;
+    			if(data.table) this.table = data.table;
     		},
     		setDB : function(type, data, callback){
     			if(data.name){
     				this.setCredentials(data, callback);
     				this.openDatabase();
     			}
+    			console.log("make trans "+type);
     			this.transaction(type, data, function(res){
     				callback(res);
     			});
@@ -614,7 +629,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 	    		this.makeTransaction(type, data, callback, function(){
 	    			self.db.transaction(
 					    function (tx){
-					    	var transactionObj = new transactionClass();
+					    	if(!transactionObj) transactionObj = new transactionClass();
 					    	var transactionData = {
 					    		tx: tx, 
 					    		queryType : self.queryType,
@@ -628,9 +643,9 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 					    	};
 	    					transactionObj.setTransaction(transactionData);
 	    					transactionObj.doTransaction();
-					    }, 
+					    },
 				        function (error){
-				            callback("Error with local db - Error code: " + error.code);
+				            callback("Error with local db - Error code: " + error);
 				        }
 		    		);
 	    		});
@@ -651,7 +666,6 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 		    			this.values = values.substring(0, values.length-2);
 
 		    			this.query = 'CREATE TABLE IF NOT EXISTS '+this.table+' ('+this.fields+')';
-		    			console.log(this.query)
 		    			this.queryValues = [];
 		    			this.queryCallback = this.callback; 
 		    			this.querySuccessMsg = "Table created successfully";
@@ -768,12 +782,14 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
     function connect(data, callback){
     	if(!localStorageObj) localStorageObj = new localStorage();
-    	localStorageObj.setCredentials(data, callback);
+    	localStorageObj.connect(data, callback);
     };
     function transaction(type, data, callback){
     	if(!localStorageObj) localStorageObj = new localStorage();
     	localStorageObj.openDatabase();
     	type = type.toLowerCase();
+
+        console.log(type);
     	switch(type){
     		case "create": 
     			localStorageObj.setDB(type, data, callback); 
@@ -839,8 +855,9 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 		    			this.queryValuesInsert[i],
 		    			function (tx, result){
 		    				counter++;
-		    				if(counter == self.queryInsert.length) 
+		    				if(counter == self.queryInsert.length){
 		    					self.callbackFunction(true, self.successMsg);
+		    				}
 			            },
 			            function (error){
 			            	self.callbackFunction(false, self.failMsg);

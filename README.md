@@ -145,7 +145,7 @@ Update data of a table.
         }
     };
 
-    set and where must be JSON objects with one or many key value pairs
+    _set_ and _where_ must be JSON objects with one or many key value pairs
     e.g.
     var data = {
         name : "database_name",

@@ -1,72 +1,72 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var $ = require("jquery");
-var local = require("../websqlInterface");
+var local = require("../lib/websqlInterface");
 var template = require("./jade/main.jade");
 $('body').append(template());
 var resultElem = $("#result");
 
 //**REAL EXAMPLE
-	// var data = {
-	// 	name : "test",
-	// 	table : "devices",
-	// 	columns : ["name", "mac", "type"]
-	// };
-	// local.createTable(data, function (result){		//CREATE DB and TABLE
-	// 	if(result.done){
-	// 		resultElem.append("<div>"+result.data+"</div>");
-	// 		var data = {
-	// 			table : "devices",
-	// 			data : [
-	// 					{
-	// 						name : "qwe",
-	// 						mac : "ff",
-	// 						type : "rty"
-	// 					},
-	// 					{
-	// 						name : "qwr",
-	// 						mac : "xx",
-	// 						type : "asd"
-	// 					},
-	// 				]
+	var data = {
+		name : "test",
+		table : "devices",
+		columns : ["name", "mac", "type"]
+	};
+	local.transaction("create", data, function (result){		//CREATE DB and TABLE
+		if(result.done){
+			resultElem.append("<div>"+result.data+"</div>");
+			var data = {
+				table : "devices",
+				data : [
+						{
+							name : "qwe",
+							mac : "ff",
+							type : "rty"
+						},
+						{
+							name : "qwr",
+							mac : "xx",
+							type : "asd"
+						},
+					]
 				
-	// 		};
-	// 		local.transaction("insert", data, function (result){		//INSERT DATA
-	// 			if(result.done){
-	// 				resultElem.append("<div>"+result.data+"</div>");
-	// 				var data = {
-	// 					table : "devices",
-	// 					data : {
-	// 						set : {
-	// 							mac : "11"
-	// 						},
-	// 						where : {
-	// 							name : "qwe",
-	// 							type : "rty"
-	// 						}
-	// 					}
-	// 				};
-	// 				local.transaction("update", data, function (result){		//UPDATE DATA
-	// 					if(result.done){
-	// 						resultElem.append("<div>"+result.data+"</div>");
-	// 						var data = {
-	// 							table : "devices",
-	// 							data : {
-	// 								name : "qwe"
-	// 							}
-	// 						};
-	// 						local.transaction("find", data, function (result){		//FIND DATA
-	// 							$.map(result.data.rows, function (item, index){
-	// 								resultElem.append("<div>Row "+(index+1)+". "+item.mac+"</div>");
-	// 							});
-	// 							// deleteDB();
-	// 							// drop();
-	// 						});
-	// 					}else msgCallback(result);
-	// 				});
-	// 			}else msgCallback(result);
-	// 		});
-	// 	}else msgCallback(result);
-	// });
+			};
+			local.transaction("insert", data, function (result){		//INSERT DATA
+				if(result.done){
+					resultElem.append("<div>"+result.data+"</div>");
+					var data = {
+						table : "devices",
+						data : {
+							set : {
+								mac : "11"
+							},
+							where : {
+								name : "qwe",
+								type : "rty"
+							}
+						}
+					};
+					local.transaction("update", data, function (result){		//UPDATE DATA
+						if(result.done){
+							resultElem.append("<div>"+result.data+"</div>");
+							var data = {
+								table : "devices",
+								data : {
+									name : "qwe"
+								}
+							};
+							local.transaction("find", data, function (result){		//FIND DATA
+								$.map(result.data.rows, function (item, index){
+									resultElem.append("<div>Row "+(index+1)+". "+item.mac+"</div>");
+								});
+								// deleteDB();
+								// drop();
+							});
+						}else msgCallback(result);
+					});
+				}else msgCallback(result);
+			});
+		}else msgCallback(result);
+	});
 
 
 //**CONNECT
@@ -77,7 +77,7 @@ var resultElem = $("#result");
 		};
 		local.connect(data, msgCallback);
 	};
-	connect();
+	// connect();
 //**CREATE
 	function create(){
 		var data = {
@@ -175,7 +175,7 @@ var resultElem = $("#result");
 			});
 		}else resultElem.append("<div>"+result.data+"</div>");
 	};
-},{"../websqlInterface":7,"./jade/main.jade":2,"jquery":"jquery"}],2:[function(require,module,exports){
+},{"../lib/websqlInterface":7,"./jade/main.jade":2,"jquery":"jquery"}],2:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -770,14 +770,6 @@ exports.DebugItem = function DebugItem(lineno, filename) {
     	if(!localStorageObj) localStorageObj = new localStorage();
     	localStorageObj.setCredentials(data, callback);
     };
-    function createTable(data, callback){
-    	if(!localStorageObj) localStorageObj = new localStorage();
-    	localStorageObj.setDB(data, "populate", callback);
-    };
-    function dropDB(data, callback){
-    	if(!localStorageObj) localStorageObj = new localStorage();
-    	localStorageObj.setDB(data, "deleteTable", callback);
-    };
     function transaction(type, data, callback){
     	if(!localStorageObj) localStorageObj = new localStorage();
     	localStorageObj.openDatabase();
@@ -806,8 +798,6 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
     module.exports = {
     	connect : connect,
-    	// createTable : createTable,
-    	dropDB : dropDB,
     	transaction : transaction
     };
 })();

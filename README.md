@@ -7,6 +7,9 @@ Web sqlite access library. Communicate easy and clean with JSON strings.
 **Connect:**
 
 Use this method in order to connect to the database
+
+**If you call the _connect_ method at start, 
+you do not need to include the name field on the transactions.**
  
     local.connect(data, callback);
  
@@ -28,10 +31,7 @@ Use this method in order to connect to the database
     Default value for descr will be the same as the name of the database.
     Default value for size is 500000. Its maximum value is 52428000.
     name field is mandatory.
-
-    **If you call the _connect_ method at start,
-    you do not need to include the name field on the transactions.**
-
+  
 **Create:**
 
 Use this method in order create a table

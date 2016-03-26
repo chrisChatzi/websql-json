@@ -26,11 +26,11 @@ you do not need to include the name field on the transactions.**
         name : "database_name"
     };
  
-    version, descr and size fields can be empty or ignored.
-    Default value for version is '1.0'. It can only be '1.0' or '2.0'
-    Default value for descr will be the same as the name of the database.
-    Default value for size is 500000. Its maximum value is 52428000.
-    name field is mandatory.
+    _version_, _descr_ and _size_ fields can be empty or ignored.
+    Default value for _version_ is '1.0'. It can only be '1.0' or '2.0'.
+    Default value for _descr_ will be the same as the name of the database.
+    Default value for _size_ is 500000. Its maximum value is 52428000.
+    _name_ field is mandatory.
   
 **Create:**
 
@@ -43,12 +43,8 @@ Use this method in order create a table
         table : "table_name",
         columns : ["col1", "col2", "col3", ...]
     };
-
-    This method first connects to the database 
-    (in case it is not already connected with the _connect_ method),
-    and then creates the table with the given columns.
-
-    columns field must be an array of strings.
+    
+    _columns_ field must be an array of strings.
  
 **Drop:**
 
@@ -84,7 +80,7 @@ Insert data to a table. Multirow insertion is also possible.
         ]  
     };
 
-    data must be an array of JSON objects. e.g.
+    _data_ must be an array of JSON objects. e.g.
     var data = {
         name : "database_name",
         table : "DEVICES",
@@ -108,7 +104,7 @@ Delete data from a table.
 
     var data = {
         name : "database_name",
-        table : "database_name",
+        table : "table_name",
         data : {
             col1 : val1
         }
@@ -164,12 +160,11 @@ Update data of a table.
             }
         }
     };
-
-    set JSON cannot be empty
-    where JSON can be empty. In this case the set condition is applied to all rows of the table.
-
     is equal to:
     UPDATE DEVICES SET name='new_device' WHERE type='ctrl' AND mac='ff'
+
+    _set_ JSON cannot be empty
+    _where_ JSON can be empty. In this case the set condition is applied to all rows of the table.
 
 **Find:**
 

@@ -29,7 +29,7 @@ var resultElem = $("#result");
 								type : "asd"
 							},
 						]
-					
+
 				};
 				local.transaction("insert", data, function (result){		//INSERT DATA
 					if(result.done){
@@ -485,7 +485,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 				}else{
 	    			if(Object.keys(this.data.columns).length === 0){
     					this.callbackFunction(
-    						false, 
+    						false,
     						"Cannot create a table without at least one column"
     					);
     					return true;
@@ -569,11 +569,11 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
     localStorage.prototype = {
     	//OPEN
-	    	openDatabase : function(){			
+	    	openDatabase : function(){
 	    		this.db = window.openDatabase(
-	    			this.name, 
-	    			this.version, 
-	    			this.descr, 
+	    			this.name,
+	    			this.version,
+	    			this.descr,
 	    			this.size
 	    		);
 	    	},
@@ -632,10 +632,10 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 					    function (tx){
 					    	if(!transactionObj) transactionObj = new transactionClass();
 					    	var transactionData = {
-					    		tx: tx, 
+					    		tx: tx,
 					    		queryType : self.queryType,
-					    		query : self.query, 
-					    		values : self.queryValues, 
+					    		query : self.query,
+					    		values : self.queryValues,
 					    		queryInsert : self.queryInsert,
 					    		queryValuesInsert : self.queryValuesInsert,
 					    		callback : self.callback,
@@ -668,14 +668,14 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
 		    			this.query = 'CREATE TABLE IF NOT EXISTS '+this.table+' ('+this.fields+')';
 		    			this.queryValues = [];
-		    			this.queryCallback = this.callback; 
+		    			this.queryCallback = this.callback;
 		    			this.querySuccessMsg = "Table created successfully";
 		    			this.queryFailMsg = "Error during CREATE transaction";
 		    		break;
 		    		case "drop":
 		    			this.query = 'DROP TABLE '+this.table;
 		    			this.queryValues = [];
-		    			this.queryCallback = this.callback; 
+		    			this.queryCallback = this.callback;
 		    			this.querySuccessMsg = "Table dropped successfully";
 		    			this.queryFailMsg = "Error during DROP transaction";
 		    		break;
@@ -701,7 +701,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 			    			this.queryValuesInsert.push(this.valuesArray);
 						}
 		    			this.queryType = "insert";
-		    			this.queryCallback = this.callback; 
+		    			this.queryCallback = this.callback;
 		    			this.querySuccessMsg = "Inserted successfully";
 		    			this.queryFailMsg = "Error during INSERT transaction";
 		    		break;
@@ -727,7 +727,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
 		    			this.query = 'UPDATE '+this.table+' SET '+this.set+' '+this.conditions+'';
 		    			this.queryValues = this.valuesArray;
-		    			this.queryCallback = this.callback; 
+		    			this.queryCallback = this.callback;
 		    			this.querySuccessMsg = "Updated successfully";
 		    			this.queryFailMsg = "Error during UPDATE transaction";
 		    		break;
@@ -755,7 +755,7 @@ exports.DebugItem = function DebugItem(lineno, filename) {
 
 			    		this.query = 'SELECT * FROM '+this.table+' '+this.conditions;
 		    			this.queryValues = [];
-		    			this.queryCallback = this.callback; 
+		    			this.queryCallback = this.callback;
 		    			this.querySuccessMsg = "";
 		    			this.queryFailMsg = "Error during FIND transaction";
 		    		break;
@@ -790,23 +790,23 @@ exports.DebugItem = function DebugItem(lineno, filename) {
     	localStorageObj.openDatabase();
     	type = type.toLowerCase();
     	switch(type){
-    		case "create": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "create":
+    			localStorageObj.setDB(type, data, callback);
     		break;
-    		case "drop": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "drop":
+    			localStorageObj.setDB(type, data, callback);
     		break;
-    		case "insert": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "insert":
+    			localStorageObj.setDB(type, data, callback);
     		break;
-    		case "update": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "update":
+    			localStorageObj.setDB(type, data, callback);
     		break;
-    		case "delete": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "delete":
+    			localStorageObj.setDB(type, data, callback);
     		break;
-    		case "find": 
-    			localStorageObj.setDB(type, data, callback); 
+    		case "find":
+    			localStorageObj.setDB(type, data, callback);
     		break;
     	}
     };

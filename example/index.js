@@ -28,7 +28,7 @@ var resultElem = $("#result");
 								type : "asd"
 							},
 						]
-					
+
 				};
 				local.transaction("insert", data, function (result){		//INSERT DATA
 					if(result.done){

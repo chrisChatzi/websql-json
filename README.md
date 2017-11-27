@@ -1,32 +1,32 @@
 Web sqlite access library. Communicate easy and clean with JSON strings.
-    
+
 ## Usage
- 
+
 > var local = require("websql-json");
- 
+
 **Connect:**
 
 Use this method in order to connect to the database
 
-**If you call the _connect_ method at start, 
+**If you call the _connect_ method at start,
 you do not need to include the name field on the transactions.**
- 
+
 ```javascript
 local.connect(data, callback);
- 
+
 var data = {
     name : "database_name",
     version : "1.0",
     descr : "database_description",
     size : 500000
 };
- 
+
 or
- 
+
 var data = {
     name : "database_name"
 };
- 
+
 _version_, _descr_ and _size_ fields can be empty or ignored.
 Default value for _version_ is '1.0'. It can only be '1.0' or '2.0'.
 Default value for _descr_ will be the same as the name of the database.
@@ -39,23 +39,23 @@ _name_ field is mandatory.
 Use this method in order create a table
 
 ```javascript
-local.transaction("create", data, callback);  
+local.transaction("create", data, callback);
 
 var data = {
     name : "database_name",
     table : "table_name",
     columns : ["col1", "col2", "col3", ...]
 };
-    
+
 _columns_ field must be an array of strings.
 ```
 
 **Drop:**
 
 Delete a table and all its data
- 
+
 ```javascript
-local.transaction("drop", data, callback);  
+local.transaction("drop", data, callback);
 
 var data = {
     name : "database_name",
@@ -68,7 +68,7 @@ var data = {
 Insert data to a table. Multirow insertion is also possible.
 
 ```javascript
-local.transaction("insert", data, callback);    
+local.transaction("insert", data, callback);
 
 var data = {
     name : "database_name",
@@ -84,7 +84,7 @@ var data = {
             col2 : val2,
             ...
         },
-    ]  
+    ]
 };
 
 _data_ must be an array of JSON objects. e.g.
@@ -214,9 +214,9 @@ var callbackData = {
   done : flag,
   data : data
 };
-    
+
 _done_ returns true if the DB call is successfull or false if it is not
-_data_ returns a message e.g. "Table created successfully" 
-    
+_data_ returns a message e.g. "Table created successfully"
+
 or in case of a 'find' transaction it returns the result in _data.rows_ array
 ```

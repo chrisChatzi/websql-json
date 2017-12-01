@@ -46,8 +46,35 @@ local.transaction('create', data, callback);
 
 var data = {
     name: 'database_name',
-    table: 'table_name',
-    columns: ['col1', 'col2', 'col3'],
+    data: [
+        {
+            table: 'table_a',
+            columns: ['col1', 'col2'],
+        },
+        {
+            table: 'table_b',
+            columns: ['col3', 'col4'],
+        },
+    ],
+    inserts: [
+        name: 'database_name',
+        data: [
+            {
+                table: 'table_a',
+                data: {
+                    col1: 'val1',
+                    col2: 'val2',
+                },
+            },
+            {
+                table: 'table_b',
+                data: {
+                    col3: 'val3',
+                    col4: 'val4',
+                },
+            },
+        ],
+    ],
 };
 ```
 
@@ -60,7 +87,14 @@ local.transaction('drop', data, callback);
 
 var data = {
     name: 'database_name',
-    table: 'table_name',
+    data: [
+        {
+            table: 'table_a',
+        },
+        {
+            table: 'table_b',
+        },
+    ],
 };
 ```
 
@@ -74,15 +108,20 @@ local.transaction('insert', data, callback);
 
 var data = {
     name: 'database_name',
-    table: 'table_name',
     data: [
         {
-            col1: 'val1',
-            col2: 'val2',
+            table: 'table_a',
+            data: {
+                col1: 'val1',
+                col2: 'val2',
+            },
         },
         {
-            col1: 'val1',
-            col2: 'val2',
+            table: 'table_b',
+            data: {
+                col3: 'val3',
+                col4: 'val4',
+            },
         },
     ],
 };
@@ -91,13 +130,14 @@ var data = {
 
 var data = {
     name: 'database_name',
-    table: 'devices',
     data: [
         {
+            table: 'devices',
             name: 'device 1',
             type: 'ctrl',
         },
         {
+            table: 'devices',
             name: 'device 2',
             type: 'ctrl',
         },
@@ -215,6 +255,10 @@ var data = {
 
 ```js
 var callbackData = {
+    // Returned from a CREATE transaction when additional INSERT data is provided
+    // This allows an INSERT transaction to proceed directly after a CREATE
+    callbackData: { data: [], name: 'database_name' },
+
     done: flag,
     message: message,
     queryType: queryType,

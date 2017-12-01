@@ -1,222 +1,219 @@
-Web sqlite access library. Communicate easy and clean with JSON strings.
+Web SQLite access library. Communicate easily and cleanly using JSON objects.
 
 ## Usage
 
-> var local = require("websql-json");
+```js
+var local = require('websql-json');
+```
 
 **Connect:**
 
-Use this method in order to connect to the database
+- Use this method in order to connect to the database
 
-**If you call the _connect_ method at start,
-you do not need to include the name field on the transactions.**
+**If you call the `connect` method at the start, you do not need to include the `name` field on subsequent transactions.**
 
-```javascript
+```js
 local.connect(data, callback);
 
 var data = {
-    name : "database_name",
-    version : "1.0",
-    descr : "database_description",
-    size : 500000
+    name: 'database_name',
+    version: '1.0',
+    descr: 'database_description',
+    size: 500000,
 };
 
-or
+// or
 
 var data = {
-    name : "database_name"
+    name: 'database_name',
 };
-
-_version_, _descr_ and _size_ fields can be empty or ignored.
-Default value for _version_ is '1.0'. It can only be '1.0' or '2.0'.
-Default value for _descr_ will be the same as the name of the database.
-Default value for _size_ is 500000. Its maximum value is 52428000.
-_name_ field is mandatory.
 ```
+
+- The `name` field is mandatory and must be defined.
+- `version`, `descr` and `size` are all optional fields.
+  - The default value for `version` is `1.0`. It can only be `1.0` or `2.0`.
+  - The default value for `descr` will be the same as the name of the database.
+  - The default value for `size` is `500000`. Its maximum value is `52428000`.
 
 **Create:**
 
-Use this method in order create a table
+- Use this method in order to create a table
 
-```javascript
-local.transaction("create", data, callback);
+```js
+local.transaction('create', data, callback);
+
+// The `columns` field must be an array of strings
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    columns : ["col1", "col2", "col3", ...]
+    name: 'database_name',
+    table: 'table_name',
+    columns: ['col1', 'col2', 'col3'],
 };
-
-_columns_ field must be an array of strings.
 ```
 
 **Drop:**
 
-Delete a table and all its data
+- Use this method in order to delete a table and all of its contents
 
-```javascript
-local.transaction("drop", data, callback);
+```js
+local.transaction('drop', data, callback);
 
 var data = {
-    name : "database_name",
-    table : "table_name"
+    name: 'database_name',
+    table: 'table_name',
 };
 ```
 
 **Insert:**
 
-Insert data to a table. Multirow insertion is also possible.
+- Use this method to insert data into a table
+  - Multi-row insertion is also possible
 
-```javascript
-local.transaction("insert", data, callback);
+```js
+local.transaction('insert', data, callback);
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    data : [
+    name: 'database_name',
+    table: 'table_name',
+    data: [
         {
-            col1 : val1,
-            col2 : val2,
-            ...
+            col1: 'val1',
+            col2: 'val2',
         },
         {
-            col1 : val1,
-            col2 : val2,
-            ...
+            col1: 'val1',
+            col2: 'val2',
         },
-    ]
+    ],
 };
 
-_data_ must be an array of JSON objects. e.g.
+// `data` must be an array of JSON objects. e.g.
+
 var data = {
-    name : "database_name",
-    table : "DEVICES",
-    data : [
+    name: 'database_name',
+    table: 'devices',
+    data: [
         {
-            name : "device 1",
-            type : "ctrl"
+            name: 'device 1',
+            type: 'ctrl',
         },
         {
-            name : "device 2",
-            type : "ctrl"
-        }
-    ]
-}
+            name: 'device 2',
+            type: 'ctrl',
+        },
+    ],
+};
 ```
 
 **Delete:**
 
-Delete data from a table.
+- Use this method in order to delete data from a table
 
-```javascript
-local.transaction("delete", data, callback);
+```js
+local.transaction('delete', data, callback);
 
-var data = {
-    name : "database_name",
-    table : "table_name",
-    data : {
-        col1 : val1
-    }
-};
-
-delete where "col1" has value "val1"
-
-or
+// Delete data where `col1` has a value of `val1`
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    data : {}
+    name: 'database_name',
+    table: 'table_name',
+    data: {
+        col1: 'val1',
+    },
 };
 
-delete all from this table
+// Or delete all data from the table
+
+var data = {
+    name: 'database_name',
+    table: 'table_name',
+    data: {},
+};
 ```
 
 **Update:**
 
-Update data of a table.
+- Use this method to update data in a table
 
-```javascript
-local.transaction("update", data, callback);
+```js
+local.transaction('update', data, callback);
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    data : {
-        set : {
-            col1 : val1,
-            col2 : val2,
-            ...
+    name: 'database_name',
+    table: 'table_name',
+    data: {
+        set: {
+            col1: 'val1',
+            col2: 'val2',
         },
-        where : {
-            col3 : val3,
-            col4 : val4,
-            ...
-        }
-    }
+        where: {
+            col3: 'val3',
+            col4: 'val4',
+        },
+    },
 };
 
-_set_ and _where_ must be JSON objects with one or many key value pairs
-e.g.
+// `set` and `where` must be JSON objects with one or many key value pairs. e.g.
+
 var data = {
-    name : "database_name",
-    table : "DEVICES",
-    data : {
-        set : {
-            name : "new_device"
+    name: 'database_name',
+    table: 'devices',
+    data: {
+        set: {
+            name: 'new_device',
         },
-        where : {
-            type : "ctrl",
-            mac : "ff"
-        }
-    }
+        where: {
+            type: 'ctrl',
+            mac: 'ff',
+        },
+    },
 };
-is equal to:
-UPDATE DEVICES SET name='new_device' WHERE type='ctrl' AND mac='ff'
-
-_set_ JSON cannot be empty
-_where_ JSON can be empty. In this case the set condition is applied to all rows of the table.
 ```
+
+- This generates the SQL: `UPDATE devices SET name='new_device' WHERE type='ctrl' AND mac='ff';`
+  - In this case the `set` condition is applied to all rows of the table.
+- `set` _cannot be_ empty
+- `where` _can be_ empty
 
 **Find:**
 
-Search database.
-```javascript
-local.transaction("find", data, callback);
+- Use this method to search a database table for a particular piece of data
+
+```js
+local.transaction('find', data, callback);
+
+// Find data where `col1` has a value of `val1`
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    data : {
-        col1 : val1
-    }
+    name: 'database_name',
+    table: 'table_name',
+    data: {
+        col1: 'val1',
+    },
 };
 
-find data where "col1" has value "val1"
-
-or
+// Or find and return all data
 
 var data = {
-    name : "database_name",
-    table : "table_name",
-    data : {}
+    name: 'database_name',
+    table: 'table_name',
+    data: {},
 };
-
-find all data in this table
 ```
 
-**Result**
+---
 
-The result of all the methods will be a JSON object with 2 keys:
+## Result
 
-```javascript
+- The result of all the methods will be a JSON object
+
+```js
 var callbackData = {
-  done : flag,
-  data : data
+    done: flag,
+    data: data,
 };
-
-_done_ returns true if the DB call is successfull or false if it is not
-_data_ returns a message e.g. "Table created successfully"
-
-or in case of a 'find' transaction it returns the result in _data.rows_ array
 ```
+
+- `done` returns `true` if the database call is successful, or `false` if it is not
+- `data` returns a message (e.g. "Table created successfully")
+- In case of a FIND transaction the result is returned in a `data.rows` array

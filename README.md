@@ -182,21 +182,27 @@ var data = {
 ```js
 local.transaction('find', data, callback);
 
-// Find data where `col1` has a value of `val1`
+// Find data where `col1` has a value of `val1` or `val2` or `val3` and `col2` has a value of `val4`
+// Additionally join on `table_b` and select all columns from `table_b`
 
 var data = {
     name: 'database_name',
-    table: 'table_name',
+    table: 'table_a',
     data: {
-        col1: 'val1',
+        col1: ['val1', 'val2', 'val3'],
+        col2: 'val4',
     },
+    join: {
+        query: 'JOIN table_b on table_a.join_id = table_b.id',
+    },
+    selects: 'table_b.*',
 };
 
-// Or find and return all data
+// Or find and return all data from `table_a`
 
 var data = {
     name: 'database_name',
-    table: 'table_name',
+    table: 'table_a',
     data: {},
 };
 ```

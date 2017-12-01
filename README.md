@@ -210,10 +210,15 @@ var data = {
 ```js
 var callbackData = {
     done: flag,
-    data: data,
+    message: message,
+    queryType: queryType,
+
+    // Returned from a FIND transaction as an `SQLResultSetRowList`
+    rows: [],
 };
 ```
 
 - `done` returns `true` if the database call is successful, or `false` if it is not
-- `data` returns a message (e.g. "Table created successfully")
-- In case of a FIND transaction the result is returned in a `data.rows` array
+- `queryType` returns the type of query that was executed (e.g. "create", "insert", etc.)
+- `message` returns a success or failure string (e.g. "Table created successfully")
+- In case of a FIND transaction the result is returned under a `rows` object key

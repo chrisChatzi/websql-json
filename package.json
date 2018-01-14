@@ -1,6 +1,6 @@
 {
   "name": "websql-json",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Web SQL Database. Everything with JSON",
   "main": "./lib/websqlInterface.js",
   "scripts": {
@@ -18,5 +18,11 @@
     "json"
   ],
   "author": "christos.chatzi",
+  "contributors": [
+    {
+      "name":"Jonathan Goode",
+      "email":"u01jmg3@gmail.com"
+    }
+  ],
   "license": "ISC"
 }

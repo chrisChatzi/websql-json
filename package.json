@@ -1,7 +1,7 @@
 {
   "name": "websql-json",
   "version": "0.1.4",
-  "description": "Web SQL Database. Everything with JSON",
+  "description": "Web SQLite access library. Communicate easily and cleanly using JSON objects.",
   "main": "./lib/websqlInterface.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,7 @@
     "sql",
     "json"
   ],
-  "author": "christos.chatzi",
+  "author": "Christos Chatzi",
   "contributors": [
     {
       "name":"Jonathan Goode",

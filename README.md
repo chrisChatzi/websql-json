@@ -236,7 +236,10 @@ var data = {
         query: 'JOIN table_b on table_a.join_id = table_b.id',
     },
     selects: 'table_b.*',
-    orderBy: ['join_id'],
+    orderBy: [
+        'join_id',
+        'another_column',
+    ],
 };
 
 // Or find and return all data from `table_a`

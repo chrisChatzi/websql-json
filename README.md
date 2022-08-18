@@ -236,6 +236,7 @@ var data = {
         query: 'JOIN table_b on table_a.join_id = table_b.id',
     },
     selects: 'table_b.*',
+    groupBy: 'join_id',
     orderBy: [
         'join_id',
         'another_column',
